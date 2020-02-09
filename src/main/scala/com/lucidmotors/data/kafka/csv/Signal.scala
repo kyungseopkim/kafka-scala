@@ -5,4 +5,8 @@ case class Signal(msgId: Int, timestamp: Long, epoch: Int, usec: Int, vlan:Strin
   def toCVS():String = {
     s"${msgId},${timestamp},${epoch},${vin},${msgName},${signalName},${value}"
   }
+
+  def toRedshift():Redshift = {
+    Redshift(msgId, timestamp, epoch, vin, msgName, signalName, value)
+  }
 }

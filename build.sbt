@@ -10,10 +10,12 @@ lazy val root = (project in file("."))
     name := "scala-client",
     libraryDependencies ++= Seq(
       "org.apache.kafka" %% "kafka" % "2.4.0",
-      "org.apache.hadoop" % "hadoop-aws" % "2.7.7",
-      "org.apache.hadoop" % "hadoop-common" % "2.7.7",
+//      "org.apache.hadoop" % "hadoop-aws" % "2.7.7",
+//      "org.apache.hadoop" % "hadoop-common" % "2.7.7",
+      "com.sksamuel.avro4s" %% "avro4s-core" % "3.0.4",
       "net.liftweb" %% "lift-json" % "3.4.0",
       "log4j" % "log4j" % "1.2.17",
+      "com.amazonaws" % "aws-java-sdk" % "1.11.717",
         scalaTest % Test
     )
   )
