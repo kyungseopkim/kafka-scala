@@ -41,6 +41,7 @@ object SignalFileSinker extends App {
   props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer")
   props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer")
   props.put("auto.offset.reset", kafkaOffset)
+  props.put("enable.auto.commit", "false")
   props.put("group.id", groupId)
   props.put("security.protocol", protocol)
 
@@ -59,7 +60,7 @@ object SignalFileSinker extends App {
   }
 
   logger.info(outputDir)
-  val service = Executors.newCachedThreadPool()
+//  val service = Executors.newCachedThreadPool()
 
   class Saver(data:Array[Signal]) extends Runnable {
     override def run(): Unit = {
@@ -96,8 +97,10 @@ object SignalFileSinker extends App {
       val signal = json.extract[Signal]
       buffer += signal
       if (buffer.size == bucketSize) {
-        service.submit(new Saver(buffer.toArray.clone()))
+//        service.submit(new Saver(buffer.toArray.clone()))
+        new Saver(buffer.toArray).run()
         buffer.clear()
+        consumer.commitAsync()
       }
     }
   }
